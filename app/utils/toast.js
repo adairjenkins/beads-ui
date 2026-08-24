@@ -13,16 +13,19 @@ export function showToast(text, variant = 'info', duration_ms = 2800) {
   el.style.right = '12px';
   el.style.bottom = '12px';
   el.style.zIndex = '1000';
-  el.style.color = '#fff';
   el.style.padding = '8px 10px';
   el.style.borderRadius = '4px';
   el.style.fontSize = '12px';
   if (variant === 'success') {
-    el.style.background = '#156d36';
+    el.style.background = 'var(--success)';
+    el.style.color = 'var(--success-fg)';
   } else if (variant === 'error') {
-    el.style.background = '#9f2011';
+    el.style.background = 'var(--danger)';
+    el.style.color = 'var(--danger-fg)';
   } else {
-    el.style.background = 'rgba(0,0,0,0.85)';
+    el.style.background = 'var(--panel-bg)';
+    el.style.color = 'var(--fg)';
+    el.style.border = '1px solid var(--border)';
   }
   (document.body || document.documentElement).appendChild(el);
   setTimeout(() => {
