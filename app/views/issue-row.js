@@ -155,7 +155,9 @@ export function createIssueRowRenderer(options) {
       data-issue-id=${it.id}
       @click=${makeRowClick(it.id)}
     >
-      <td role="gridcell" class="mono">${createIssueIdRenderer(it.id)}</td>
+      <td role="gridcell" class="mono cell-id">
+        ${createIssueIdRenderer(it.id)}
+      </td>
       <td role="gridcell">
         <select
           class="badge-select badge--type type-badge--${cur_type || 'neutral'}"
