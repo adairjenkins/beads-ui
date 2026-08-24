@@ -1345,6 +1345,11 @@ input.inline-edit:focus {
     font-weight: 600;
   }
 }
+/* IDs are nowrap, so the cell must clip or long ids paint over Type/Title */
+.cell-id {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .epic-row:hover {
   background: color-mix(in srgb, var(--control-bg) 55%, transparent);
 }
