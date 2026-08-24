@@ -1,14 +1,20 @@
+import { shortenIssueId } from './issue-id-display.js';
+
 /**
  * Create a reusable, copy-to-clipboard issue ID renderer.
  * Looks like the current inline ID (monospace `#123`) but acts as a button
  * that copies the full, prefixed ID (e.g., `UI-123`) when activated.
  * Shows transient "Copied" feedback and then restores the ID.
  *
+ * Displays the shortened id but always copies the full one.
+ *
  * @param {string} id - Full issue id including the prefix (e.g., "UI-123").
  * @param {{ class_name?: string, duration_ms?: number }} [opts]
  * @returns {HTMLButtonElement}
  */
 export function createIssueIdRenderer(id, opts) {
+  /** @type {string} */
+  const display = shortenIssueId(id);
   /** @type {number} */
   const duration =
     typeof opts?.duration_ms === 'number' ? opts.duration_ms : 1200;
@@ -19,9 +25,9 @@ export function createIssueIdRenderer(id, opts) {
     (opts?.class_name ? opts.class_name + ' ' : '') + 'mono id-copy';
   btn.type = 'button';
   btn.setAttribute('aria-live', 'polite');
-  btn.setAttribute('title', 'Copy issue ID');
+  btn.setAttribute('title', `Copy issue ID ${id}`);
   btn.setAttribute('aria-label', `Copy issue ID ${id}`);
-  btn.textContent = id;
+  btn.textContent = display;
 
   /** Copy handler with feedback. */
   async function doCopy() {
@@ -59,7 +65,7 @@ export function createIssueIdRenderer(id, opts) {
         btn.setAttribute('aria-label', 'Copied');
         setTimeout(
           () => {
-            btn.textContent = id;
+            btn.textContent = display;
             btn.setAttribute('aria-label', oldAria);
           },
           Math.max(80, duration)
